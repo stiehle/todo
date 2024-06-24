@@ -80,11 +80,13 @@ function ToDoList() {
   }
 
   async function deleteTodo(id: number) {
-    console.log("Delete ", id);
-    const response = await deleteData(id);
-    console.log(response);
+    if (!editMode) {
+      console.log("Delete ", id);
+      const response = await deleteData(id);
+      console.log(response);
 
-    getData();
+      getData();
+    } else alert("Bitte zuerst speichern!");
   }
 
   function buttonAction(id: number) {
