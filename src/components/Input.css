@@ -1,0 +1,39 @@
+.input-field {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 1rem;
+  width: 90%;
+  margin: 0 auto;
+  height: fit-content;
+}
+
+.input-text {
+  width: 100%;
+  font-size: 1.4rem;
+  border: 2px solid #2642bd;
+  border-radius: 5px;
+}
+
+input:hover,
+.add-button:hover,
+.save-button:hover {
+  /* border-color: #646cff; */
+  border-color: #f16a48;
+}
+
+.add-button,
+.save-button {
+  /* width: 5rem; */
+  /* padding: 0.5rem; */
+  background-color: transparent;
+  border: 2px solid transparent;
+  /* color: #ffffff; */
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* .add-button,
+.save-button {
+  background-color: #ff7f50;
+} */

@@ -1,0 +1,58 @@
+.todo {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 95%;
+  min-height: 2.5rem;
+  margin: 1rem auto;
+  align-items: center;
+  background-color: #c2b7b3;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.id-number {
+  width: 2rem;
+  text-align: end;
+  font-size: 0.8rem;
+  color: #565fd8;
+}
+
+.priority {
+  margin: 0 0.3rem;
+
+  background-color: transparent;
+  border-radius: 5px;
+  border: 2px solid #8a62cc;
+  width: 4rem;
+  text-align: center;
+  cursor: pointer;
+}
+
+.checkbox {
+  margin: 0 0.5rem;
+}
+
+.button-action {
+  /* padding: 0.3rem 0.5rem; */
+  margin-right: 0.5rem;
+  background-color: transparent;
+  border: 2px solid transparent;
+  border-radius: 5px;
+}
+
+.button-action:hover,
+.priority:hover {
+  border: 2px solid #ffffff;
+}
+
+.todo-note {
+  width: 100%;
+  text-align: start;
+  cursor: pointer;
+}
+
+.content {
+  font-weight: 800;
+  display: inline-block;
+}

@@ -1,0 +1,80 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  margin: 0.5rem;
+  color: #f0f8ff;
+}
+
+.header {
+  height: 6rem;
+}
+
+.todo-list {
+  height: 100%;
+  width: 95%;
+  margin: 0 auto;
+  margin-top: 0.5rem;
+  overflow-x: auto;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  color: #f0f8ff;
+}
+
+.footer-links {
+  display: inherit;
+  flex-direction: row;
+  gap: 1rem;
+  /* color: inherit; */
+  justify-content: center;
+}
+
+.footer-copy {
+  display: inherit;
+  flex-direction: row;
+  justify-content: center;
+  /* color: inherit; */
+}
+
+a {
+  font-weight: 400;
+  color: #ffffff;
+  text-decoration: inherit;
+}
+
+.action-window {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #8266cf;
+  width: 100%;
+  margin: auto;
+}
+
+.action {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  background-color: transparent;
+  width: 100%;
+}
+
+.action-buttons {
+  background-color: #ffffff;
+  padding: 0.8rem 1.2rem;
+  border: 2px solid #8a62cc;
+  border-radius: 5px;
+  margin: 0.5rem;
+}
+
+.action-buttons:hover {
+  background-color: #ff0000;
+  transition: 0.5s all ease-in-out;
+  cursor: pointer;
+}
