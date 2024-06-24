@@ -1,7 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 import { Database } from "../types/database.types";
 
-const supabase = createClient<Database>(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_ACCESS_TOKEN);
+const supabase = createClient<Database>("https://eotnjocbwmxxfclxgmjx.supabase.co", import.meta.env.VITE_SUPABASE_ACCESS_TOKEN);
 
 export async function fetchData() {
   const { data, error } = await supabase.from("tasklist").select("*");
