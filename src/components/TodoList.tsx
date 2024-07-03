@@ -7,7 +7,7 @@ import { fetchData, insertData, signInWithPassword, updateData, deleteData } fro
 import { Tables } from "../types/database.types";
 
 function ToDoList() {
-  const [todos, setTodos] = useState<Tables<"tasklist">[]>();
+  const [todos, setTodos] = useState<Tables<"tasklist">[]>([]);
   const [action, setAction] = useState(-1);
   const [inputValue, setInputValue] = useState("");
   const [editMode, setEditMode] = useState(false);
@@ -117,7 +117,8 @@ function ToDoList() {
   }
 
   function checkTodos() {
-    if (!todos) {
+    // console.log(todos.length);
+    if (todos.length === 0) {
       return <h3>Noch keine Todos</h3>;
     }
     return;
@@ -144,7 +145,7 @@ function ToDoList() {
   function sortedTodos() {
     const newTodos = todos;
     // const sorted = newTodos.sort((A: any, B: any) => B.priority - A.priority);
-    if (!newTodos) return;
+    // if (!newTodos) return;
     const sorted = newTodos.sort((A, B) => A.priority.localeCompare(B.priority));
     // console.log("sorted: ", sorted);
     return sorted;
@@ -179,7 +180,7 @@ function ToDoList() {
       </div>
       <div className="todo-list">
         {checkTodos()}
-        {sortedTodos()?.map((list) => {
+        {sortedTodos().map((list) => {
           // console.log("###", list);
           return (
             <div key={list.id}>
@@ -202,7 +203,9 @@ function ToDoList() {
                       Ändern
                     </button>
                   </div>
-                  <p>{list.created_at}</p>
+                  <p>
+                    id: {list.id} - date: {list.created_at}
+                  </p>
                 </div>
               ) : (
                 <Todo todo={list} buttonAction={buttonAction} updateCheckbox={setCheckbox} setPriority={updatePriority} />

@@ -18,22 +18,18 @@
 input:hover,
 .add-button:hover,
 .save-button:hover {
-  /* border-color: #646cff; */
   border-color: #f16a48;
 }
 
 .add-button,
 .save-button {
-  /* width: 5rem; */
-  /* padding: 0.5rem; */
   background-color: transparent;
   border: 2px solid transparent;
-  /* color: #ffffff; */
   border-radius: 5px;
   cursor: pointer;
 }
 
-/* .add-button,
-.save-button {
-  background-color: #ff7f50;
-} */
+.centered-label {
+  display: flex;
+  align-items: center;
+}
