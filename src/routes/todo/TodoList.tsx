@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import InputField from "../../components/Input";
 import Todo from "./Todo";
 import "./TodoList.scss";
-import { fetchData, insertData, signInWithPassword, updateData, deleteData, checkUser, signOutUser } from "../../components/supabase";
+import { fetchData, insertData, updateData, deleteData, checkUser, signOutUser } from "../../components/supabase";
 import { Tables } from "../../types/database.types";
 import { useNavigate, Link } from "react-router-dom";
 import Footer from "../../components/Footer";
