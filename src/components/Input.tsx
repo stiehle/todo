@@ -18,7 +18,7 @@ function InputField({ addButton, saveButton, changeText, valueX, editMode }: IFi
 
   return (
     <div className="input-field">
-      <input className="input-text" onChange={handleInputChange} value={valueX} />
+      <input name="input-text" className="input-text" onChange={handleInputChange} value={valueX} />
       {editMode === false ? (
         <button
           className="add-button centered-label"

@@ -1,24 +1,41 @@
 import { useState, useEffect } from "react";
 
-import InputField from "./Input";
+import InputField from "../../components/Input";
 import Todo from "./Todo";
-import "./TodoList.css";
-import { fetchData, insertData, signInWithPassword, updateData, deleteData } from "./supabase";
-import { Tables } from "../types/database.types";
+import "./TodoList.scss";
+import { fetchData, insertData, signInWithPassword, updateData, deleteData, checkUser, signOutUser } from "../../components/supabase";
+import { Tables } from "../../types/database.types";
+import { useNavigate, Link } from "react-router-dom";
+import Footer from "../../components/Footer";
 
 function ToDoList() {
   const [todos, setTodos] = useState<Tables<"tasklist">[]>([]);
   const [action, setAction] = useState(-1);
   const [inputValue, setInputValue] = useState("");
   const [editMode, setEditMode] = useState(false);
+  const [userLogIn, setUserLogIn] = useState<{ user: string; logIn: boolean }>({ user: "", logIn: false });
+
+  const navigate = useNavigate();
 
   useEffect(() => {
-    signIn();
+    console.log("useEffect");
+    checkUserLogIn();
+    // signIn();
     getData();
   }, []);
 
-  async function signIn() {
-    await signInWithPassword();
+  // async function signIn() {
+  //   await signInWithPassword();
+  // }
+
+  async function checkUserLogIn() {
+    const logIn = await checkUser();
+    console.log("Log:", logIn, logIn.session?.user.email);
+    if (logIn.session !== null) {
+      setUserLogIn({ user: String(logIn.session.user.email), logIn: true });
+    } else {
+      navigate("/todo/login/");
+    }
   }
 
   async function insertNewRow() {
@@ -63,7 +80,7 @@ function ToDoList() {
 
     console.log(newTodo[0]);
 
-    const data = { id: id, column: { content: newTodo[0].content, note: newTodo[0].note } };
+    const data = { id: id, row: { content: newTodo[0].content, note: newTodo[0].note } };
 
     const response = await updateData(data);
     console.log(response);
@@ -132,9 +149,9 @@ function ToDoList() {
     updateDataX(id, "priority", priority);
   }
 
-  async function updateDataX(id: number, col: string, updatedData: string | boolean) {
+  async function updateDataX(id: number, column: string, updatedData: string | boolean) {
     console.log(id, updatedData);
-    const data = { id: id, column: { [col]: updatedData } };
+    const data = { id: id, row: { [column]: updatedData } };
 
     const response = await updateData(data);
     console.log(response);
@@ -172,10 +189,16 @@ function ToDoList() {
     setAction(-1);
   }
 
+  async function signOut() {
+    console.log("Signout");
+    await signOutUser();
+    navigate("/todo/login/");
+  }
+
   return (
     <>
       <div className="header">
-        <h1>Aufgaben</h1>
+        {userLogIn.logIn ? <h1 style={{ color: "#00FF00" }}>Aufgaben </h1> : <h1 style={{ color: "#FF0000" }}>Aufgaben</h1>}
         <InputField addButton={addButton} saveButton={saveButton} changeText={changeText} valueX={inputValue} editMode={editMode} />
       </div>
       <div className="todo-list">
@@ -214,15 +237,32 @@ function ToDoList() {
           );
         })}
       </div>
+      <div className="log-data">
+        <Link to="/todo/login">
+          {userLogIn.logIn ? (
+            <p style={{ backgroundColor: "#00FF00", color: "#000000" }}>Anmeldung als: {userLogIn.user}</p>
+          ) : (
+            <p style={{ backgroundColor: "#FF0000", color: "#FFFFFF" }}>keine Anmeldung</p>
+          )}
+        </Link>
+        <button
+          onClick={() => {
+            signOut();
+          }}>
+          Abmelden
+        </button>
+      </div>
       <div className="footer">
-        <div className="footer-links">
+        {/* <div className="footer-links">
           <a href="#">Impressum</a>
           <a href="#">Datenschutzerklärung</a>
           <a href="#">www.stiehle.de</a>
         </div>
         <div className="footer-copy">
           <h4>&copy;2024 www.stiehle.de</h4>
-        </div>
+        </div> */}
+
+        <Footer />
       </div>
     </>
   );
