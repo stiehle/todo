@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./LogIn.scss";
-import { useNavigate, Link } from "react-router-dom";
-import { signInWithPassword, signOut, signOutUser } from "../../components/supabase";
+import { useNavigate } from "react-router-dom";
+import { signInWithPassword } from "../../components/supabase";
 import Footer from "../../components/Footer";
 
 function LogIn() {
