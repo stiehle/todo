@@ -20,13 +20,9 @@ function ToDoList() {
   useEffect(() => {
     console.log("useEffect");
     checkUserLogIn();
-    // signIn();
+
     getData();
   }, []);
-
-  // async function signIn() {
-  //   await signInWithPassword();
-  // }
 
   async function checkUserLogIn() {
     const logIn = await checkUser();
@@ -92,8 +88,6 @@ function ToDoList() {
     const data = await fetchData();
     if (!data) return;
     setTodos(data);
-
-    // console.log(data);
   }
 
   async function deleteTodo(id: number) {
@@ -195,8 +189,31 @@ function ToDoList() {
     navigate("/todo/login/");
   }
 
+  function handleMenuClick(event: React.MouseEvent<HTMLElement, MouseEvent>) {
+    console.log("geklickt", event);
+    const x = event.target as HTMLElement;
+    console.log(x.innerText, x.getAttribute("data-link"));
+  }
+
   return (
     <>
+      <div className="navigation">
+        <div className="navigation__checkin">Anmeldung</div>
+        <div className="navigation__info">
+          Info
+          <div className="navigation__info--menu">
+            <div className="navigation__menu" data-link="1" onClick={(event) => handleMenuClick(event)}>
+              Link 1
+            </div>
+            <div className="navigation__menu" data-link="2" onClick={(event) => handleMenuClick(event)}>
+              Link 2
+            </div>
+            <div className="navigation__menu" data-link="3" onClick={(event) => handleMenuClick(event)}>
+              Link 3
+            </div>
+          </div>
+        </div>
+      </div>
       <div className="header">
         {userLogIn.logIn ? <h1 style={{ color: "#00FF00" }}>Aufgaben </h1> : <h1 style={{ color: "#FF0000" }}>Aufgaben</h1>}
         <InputField addButton={addButton} saveButton={saveButton} changeText={changeText} valueX={inputValue} editMode={editMode} />

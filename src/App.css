@@ -1,4 +1,5 @@
 #root {
+  /* position: relative; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -8,4 +9,5 @@
   text-align: center;
   background: linear-gradient(to top right, #5d15da 0%, #888383 100%);
   align-items: center;
+  margin: 0 auto;
 }
