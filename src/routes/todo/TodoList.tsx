@@ -13,7 +13,7 @@ function ToDoList() {
   const [action, setAction] = useState(-1);
   const [inputValue, setInputValue] = useState("");
   const [editMode, setEditMode] = useState(false);
-  const [userLogIn, setUserLogIn] = useState<{ user: string; logIn: boolean }>({ user: "", logIn: false });
+  const [userLogIn, setUserLogIn] = useState<{ user: string; logIn: boolean; user_id: string }>({ user: "", logIn: false, user_id: "" });
 
   const navigate = useNavigate();
 
@@ -28,7 +28,7 @@ function ToDoList() {
     const logIn = await checkUser();
     console.log("Log:", logIn, logIn.session?.user.email);
     if (logIn.session !== null) {
-      setUserLogIn({ user: String(logIn.session.user.email), logIn: true });
+      setUserLogIn({ user: String(logIn.session.user.email), logIn: true, user_id: logIn.session.user.id });
     } else {
       navigate("/todo/login/");
     }
@@ -50,6 +50,7 @@ function ToDoList() {
       done: false,
       note: inputArray[1],
       priority: "X",
+      user: userLogIn.user_id,
     };
 
     const data = await insertData(insert);
@@ -189,26 +190,33 @@ function ToDoList() {
     navigate("/todo/login/");
   }
 
-  function handleMenuClick(event: React.MouseEvent<HTMLElement, MouseEvent>) {
+  function handleMenuClick(event: React.MouseEvent<HTMLElement, MouseEvent>, link: string) {
+    switch (link) {
+      case "login":
+        navigate("/todo/login/");
+    }
+
     console.log("geklickt", event);
     const x = event.target as HTMLElement;
-    console.log(x.innerText, x.getAttribute("data-link"));
+    console.log(x.innerText, x.getAttribute("data-link"), link);
   }
 
   return (
     <>
       <div className="navigation">
-        <div className="navigation__checkin">Anmeldung</div>
+        <div className="navigation__checkin" onClick={(event) => handleMenuClick(event, "login")}>
+          Anmeldung
+        </div>
         <div className="navigation__info">
           Info
           <div className="navigation__info--menu">
-            <div className="navigation__menu" data-link="1" onClick={(event) => handleMenuClick(event)}>
+            <div className="navigation__menu" data-link="1" onClick={(event) => handleMenuClick(event, "LinkA")}>
               Link 1
             </div>
-            <div className="navigation__menu" data-link="2" onClick={(event) => handleMenuClick(event)}>
+            <div className="navigation__menu" data-link="2" onClick={(event) => handleMenuClick(event, "LinkB")}>
               Link 2
             </div>
-            <div className="navigation__menu" data-link="3" onClick={(event) => handleMenuClick(event)}>
+            <div className="navigation__menu" data-link="3" onClick={(event) => handleMenuClick(event, "LinkC")}>
               Link 3
             </div>
           </div>
