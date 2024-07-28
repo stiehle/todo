@@ -1,7 +1,7 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, useState } from "react";
 import { CgMore } from "react-icons/cg";
 import { IconContext } from "react-icons";
-import "./Todo.css";
+import "./Todo.scss";
 
 interface ITodo {
   todo: {
@@ -19,13 +19,18 @@ interface ITodo {
 }
 
 function Todo({ todo, buttonAction, updateCheckbox, setPriority }: ITodo) {
+  const [showPriorityMenu, setShowPriorityMenu] = useState(false);
   // const [check, setCheck] = useState(todo.done);
 
   function handleChangeCheckboxEvent(changeEvent: ChangeEvent<HTMLInputElement>) {
-    console.log("checkbox", changeEvent);
+    console.log("checkbox", changeEvent, changeEvent.target.checked);
 
     updateCheckbox(todo.id, changeEvent.target.checked);
-    setPriority(Number(changeEvent.target.id), "Y");
+    if (changeEvent.target.checked) {
+      setPriority(Number(changeEvent.target.id), "4");
+    } else {
+      setPriority(Number(changeEvent.target.id), "3");
+    }
 
     // console.log("---!", todo, check);
   }
@@ -48,6 +53,8 @@ function Todo({ todo, buttonAction, updateCheckbox, setPriority }: ITodo) {
     "0": { backgroundColor: "#FF0000", color: "#FFFFFF" },
     "1": { backgroundColor: "#FFAA00", color: "#004488" },
     "2": { backgroundColor: "#00FF00", color: "#000000" },
+    "3": { backgroundColor: "#CCCCCC", color: "#000000" },
+    "4": { backgroundColor: "#808080", color: "#000000" },
     X: { backgroundColor: "#CCCCCC", color: "#000000" },
     Y: { backgroundColor: "#808080", color: "#000000" },
   };
@@ -58,12 +65,28 @@ function Todo({ todo, buttonAction, updateCheckbox, setPriority }: ITodo) {
     return priorityColorTheme[priority as keyof typeof priorityColorTheme];
   }
 
+  function createMenuButtons() {
+    const html: number[] = [0, 1, 2, 3, 4];
+
+    return html.map((val) => {
+      return (
+        <button
+          onClick={() => {
+            setPriority(todo.id, String(val));
+            setShowPriorityMenu(false);
+          }}>
+          {val}
+        </button>
+      );
+    });
+  }
+
   // console.log("---!", todo);
   // <div className="todo" style={setbColor()}></div>
   return (
     <div className="todo" style={setPriorityColor()}>
-      <p className="id-number"> {todo.id}</p>
-      <select
+      {/* <p className="id-number"> {todo.id}</p> */}
+      {/* <select
         className="priority"
         name="priority"
         // defaultValue={"X"}
@@ -76,7 +99,41 @@ function Todo({ todo, buttonAction, updateCheckbox, setPriority }: ITodo) {
         <option value="2">2</option>
         <option value="X">...</option>
         <option value="Y">---</option>
-      </select>
+      </select> */}
+
+      <button
+        className="button-priority"
+        onClick={() => {
+          if (!showPriorityMenu) {
+            setShowPriorityMenu(true);
+          } else {
+            setShowPriorityMenu(false);
+          }
+        }}>
+        {todo.priority}
+      </button>
+      {showPriorityMenu && (
+        <div className="button-priority__menu">
+          <div className="button-priority__header">Wichtigkeit wählen</div>
+          <div className="button-priority__buttons">
+            {createMenuButtons()}
+            {/* <button
+              onClick={() => {
+                setPriority(todo.id, "0");
+                setShowPriorityMenu(false);
+              }}>
+              0
+            </button>
+            <button
+              onClick={() => {
+                setPriority(todo.id, "1");
+              }}>
+              1
+            </button>
+            <button>1</button> */}
+          </div>
+        </div>
+      )}
       <input id={String(todo.id)} className="checkbox" type="checkbox" checked={todo.done} onChange={handleChangeCheckboxEvent}></input>
       <label
         htmlFor={String(todo.id)}

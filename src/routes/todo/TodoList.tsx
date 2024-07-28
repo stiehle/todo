@@ -14,6 +14,7 @@ function ToDoList() {
   const [inputValue, setInputValue] = useState("");
   const [editMode, setEditMode] = useState(false);
   const [userLogIn, setUserLogIn] = useState<{ user: string; logIn: boolean; user_id: string }>({ user: "", logIn: false, user_id: "" });
+  // const [showPriorityMenu, setShowPriorityMenu] = useState(false);
 
   const navigate = useNavigate();
 
@@ -49,7 +50,7 @@ function ToDoList() {
       content: inputArray[0],
       done: false,
       note: inputArray[1],
-      priority: "X",
+      priority: "3",
       user: userLogIn.user_id,
     };
 
