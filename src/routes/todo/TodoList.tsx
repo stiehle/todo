@@ -138,18 +138,34 @@ function ToDoList() {
   }
 
   function setCheckbox(id: number, check: boolean) {
-    updateDataX(id, "done", check);
+    // updateDataX(id, "done", check);
+    updateDataRow(id, { done: check });
   }
 
-  function updatePriority(id: number, priority: string) {
-    updateDataX(id, "priority", priority);
+  function updatePriority(id: number, priority: string, check: boolean) {
+    // updateDataX(id, "priority", priority);
+    // updateDataRow(id, { priority: priority, done: check });
+
+    if (priority > "3") {
+      updateDataRow(id, { priority: priority, done: true });
+    } else {
+      updateDataRow(id, { priority: priority, done: check });
+    }
   }
 
-  async function updateDataX(id: number, column: string, updatedData: string | boolean) {
-    console.log(id, updatedData);
-    const data = { id: id, row: { [column]: updatedData } };
+  // async function updateDataX(id: number, column: string, updatedData: string | boolean) {
+  //   console.log(id, updatedData);
+  //   // const data = { id: id, row: { content: newTodo[0].content, note: newTodo[0].note } };
+  //   const data = { id: id, row: { [column]: updatedData } };
 
-    const response = await updateData(data);
+  //   const response = await updateData(data);
+  //   console.log(response);
+
+  //   getData();
+  // }
+
+  async function updateDataRow(id: number, row: {}) {
+    const response = await updateData({ id, row });
     console.log(response);
 
     getData();

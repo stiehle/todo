@@ -15,7 +15,7 @@ interface ITodo {
   };
   buttonAction: (id: number) => void;
   updateCheckbox: (id: number, check: boolean) => void;
-  setPriority: (id: number, priority: string) => void;
+  setPriority: (id: number, priority: string, check: boolean) => void;
 }
 
 function Todo({ todo, buttonAction, updateCheckbox, setPriority }: ITodo) {
@@ -27,9 +27,9 @@ function Todo({ todo, buttonAction, updateCheckbox, setPriority }: ITodo) {
 
     updateCheckbox(todo.id, changeEvent.target.checked);
     if (changeEvent.target.checked) {
-      setPriority(Number(changeEvent.target.id), "4");
+      setPriority(Number(changeEvent.target.id), "4", true);
     } else {
-      setPriority(Number(changeEvent.target.id), "3");
+      setPriority(Number(changeEvent.target.id), "3", false);
     }
 
     // console.log("---!", todo, check);
@@ -71,8 +71,9 @@ function Todo({ todo, buttonAction, updateCheckbox, setPriority }: ITodo) {
     return html.map((val) => {
       return (
         <button
+          key={val}
           onClick={() => {
-            setPriority(todo.id, String(val));
+            setPriority(todo.id, String(val), false);
             setShowPriorityMenu(false);
           }}>
           {val}
