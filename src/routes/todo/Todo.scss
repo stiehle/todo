@@ -5,7 +5,7 @@
   justify-content: center;
   width: 95%;
   min-height: 2.5rem;
-  margin: 1rem auto;
+  margin: 0.8rem auto;
   align-items: center;
   background-color: #c2b7b3;
   cursor: pointer;
@@ -48,6 +48,7 @@
 
   &__header {
     color: #ff0000;
+    margin: 0 auto;
   }
 
   &__buttons {

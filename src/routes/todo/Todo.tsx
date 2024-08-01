@@ -55,8 +55,8 @@ function Todo({ todo, buttonAction, updateCheckbox, setPriority }: ITodo) {
     "2": { backgroundColor: "#00FF00", color: "#000000" },
     "3": { backgroundColor: "#CCCCCC", color: "#000000" },
     "4": { backgroundColor: "#808080", color: "#000000" },
-    X: { backgroundColor: "#CCCCCC", color: "#000000" },
-    Y: { backgroundColor: "#808080", color: "#000000" },
+    // X: { backgroundColor: "#CCCCCC", color: "#000000" },
+    // Y: { backgroundColor: "#808080", color: "#000000" },
   };
 
   function setPriorityColor() {

@@ -7,6 +7,7 @@ import { fetchData, insertData, updateData, deleteData, checkUser, signOutUser }
 import { Tables } from "../../types/database.types";
 import { useNavigate, Link } from "react-router-dom";
 import Footer from "../../components/Footer";
+import NavigationMenu from "../../components/NavigationMenu";
 
 function ToDoList() {
   const [todos, setTodos] = useState<Tables<"tasklist">[]>([]);
@@ -207,41 +208,17 @@ function ToDoList() {
     navigate("/todo/login/");
   }
 
-  function handleMenuClick(event: React.MouseEvent<HTMLElement, MouseEvent>, link: string) {
-    switch (link) {
-      case "login":
-        navigate("/todo/login/");
-    }
-
-    console.log("geklickt", event);
-    const x = event.target as HTMLElement;
-    console.log(x.innerText, x.getAttribute("data-link"), link);
-  }
-
   return (
     <>
-      <div className="navigation">
+      {/* <div className="navigation">
         <div className="navigation__checkin" onClick={(event) => handleMenuClick(event, "login")}>
           Anmeldung
-        </div>
-        <div className="navigation__info">
-          Info
-          <div className="navigation__info--menu">
-            <div className="navigation__menu" data-link="1" onClick={(event) => handleMenuClick(event, "LinkA")}>
-              Link 1
-            </div>
-            <div className="navigation__menu" data-link="2" onClick={(event) => handleMenuClick(event, "LinkB")}>
-              Link 2
-            </div>
-            <div className="navigation__menu" data-link="3" onClick={(event) => handleMenuClick(event, "LinkC")}>
-              Link 3
-            </div>
-          </div>
-        </div>
-      </div>
+        </div> */}
+      <NavigationMenu />
+      {/* </div> */}
       <div className="header">
-        {userLogIn.logIn ? <h1 style={{ color: "#00FF00" }}>Aufgaben </h1> : <h1 style={{ color: "#FF0000" }}>Aufgaben</h1>}
         <InputField addButton={addButton} saveButton={saveButton} changeText={changeText} valueX={inputValue} editMode={editMode} />
+        {userLogIn.logIn ? <h1 style={{ color: "#00FF00" }}>Aufgaben </h1> : <h1 style={{ color: "#FF0000" }}>Aufgaben</h1>}
       </div>
       <div className="todo-list">
         {checkTodos()}
