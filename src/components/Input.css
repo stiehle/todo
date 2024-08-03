@@ -1,3 +1,8 @@
+:root {
+  --input-text-border-color: #2642bd;
+  --input-text-hover-color: #f16a48;
+}
+
 .input-field {
   display: flex;
   flex-direction: row;
@@ -10,14 +15,14 @@
 .input-text {
   width: 100%;
   font-size: 1.4rem;
-  border: 2px solid #2642bd;
+  border: 2px solid var(--input-text-border-color);
   border-radius: 5px;
 }
 
 input:hover,
 .add-button:hover,
 .save-button:hover {
-  border-color: #f16a48;
+  border-color: var(--input-text-hover-color);
 }
 
 .add-button,

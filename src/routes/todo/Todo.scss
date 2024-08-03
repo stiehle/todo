@@ -1,3 +1,9 @@
+$button-border-color: #000000;
+$menu-background-color: #c2b7b3;
+$menu-header-color: #ff0000;
+$menu-button-background-color: #ff9100;
+$action-button-border-color: #ffffff;
+
 .todo {
   position: relative;
   display: flex;
@@ -7,24 +13,16 @@
   min-height: 2.5rem;
   margin: 0.8rem auto;
   align-items: center;
-  background-color: #c2b7b3;
   cursor: pointer;
   border-radius: 5px;
-}
-
-.id-number {
-  width: 2rem;
-  text-align: end;
-  font-size: 0.8rem;
-  color: #565fd8;
 }
 
 .button-priority {
   margin: 0 0.3rem;
   background-color: transparent;
   border-radius: 5px;
-  border: 2px solid #8a62cc;
-  width: 4rem;
+  border: 2px solid $button-border-color;
+  width: 3rem;
   text-align: center;
   cursor: pointer;
   font-weight: 800;
@@ -33,7 +31,7 @@
     position: absolute;
     display: flex;
     flex-direction: column;
-    background-color: #c2b7b3;
+    background-color: $menu-background-color;
     width: 300px;
     height: 50px;
     left: 0px;
@@ -42,12 +40,12 @@
     box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.5);
 
     &:hover {
-      background-color: darken(#c2b7b3, 10%);
+      background-color: darken($menu-background-color, 10%);
     }
   }
 
   &__header {
-    color: #ff0000;
+    color: $menu-header-color;
     margin: 0 auto;
   }
 
@@ -64,6 +62,14 @@
     border-radius: 5px;
     cursor: pointer;
   }
+
+  &__buttons button:hover {
+    background-color: darken($menu-button-background-color, 10%);
+  }
+
+  &:hover {
+    background-color: darken($menu-button-background-color, 10%);
+  }
 }
 
 .checkbox {
@@ -75,11 +81,10 @@
   background-color: transparent;
   border: 2px solid transparent;
   border-radius: 5px;
-}
 
-.button-action:hover,
-.priority:hover {
-  border: 2px solid #ffffff;
+  &:hover {
+    border: 2px solid $action-button-border-color;
+  }
 }
 
 .todo-note {

@@ -1,3 +1,6 @@
+$text-color: #ffffff;
+$button-background-color: #ffd016;
+
 .site-header {
   height: 40%;
 }
@@ -10,7 +13,7 @@
   height: 100%;
 
   &__header {
-    color: #ffffff;
+    color: $text-color;
     margin-bottom: 1rem;
     text-align: center;
   }
@@ -31,46 +34,16 @@
     }
   }
 
-  // &__item input {
-  //   font-size: 1.3rem;
-  //   cursor: pointer;
-  //   gap: 1rem;
-  // }
-
   &__item button {
     padding: 0.5rem;
     font-size: 1.2rem;
-    background-color: #ffd016;
+    background-color: $button-background-color;
     text-transform: uppercase;
     cursor: pointer;
     width: 100%;
 
     &:hover {
-      background-color: darken(#ffd016, 10%);
-    }
-  }
-
-  // &__item button:hover {
-  //   background-color: darken(#ffd016, 10%);
-  // }
-
-  &__item .return-button {
-    background-color: #ffffff;
-    width: fit-content;
-  }
-}
-
-.logout {
-  &__item button {
-    padding: 0.5rem;
-    font-size: 1.2rem;
-    background-color: #7363ac;
-    text-transform: uppercase;
-    cursor: pointer;
-    width: fit-content;
-
-    &:hover {
-      background-color: lighten(#7363ac, 10%);
+      background-color: darken($button-background-color, 10%);
     }
   }
 }

@@ -23,8 +23,6 @@ function LogIn() {
   }
 
   async function submitLogIn() {
-    console.log(emailAdress.inputValue);
-    console.log(password.inputValue);
     const logIn = await signInWithPassword({ email: emailAdress.inputValue, password: password.inputValue });
 
     if (!logIn) {
@@ -52,10 +50,6 @@ function LogIn() {
             }}>
             Anmelden
           </button>
-
-          {/* <Link to="/todo/">
-            <button className="return-button">Zurück</button>
-          </Link> */}
         </div>
       </div>
       <Footer />

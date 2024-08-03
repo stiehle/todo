@@ -1,8 +1,8 @@
+$footer-font-copyright-color: #ffffff;
+
 .footer {
   display: flex;
   flex-direction: column;
-  //   height: 10%;
-  color: #f0f8ff;
 }
 
 .footer p {
@@ -20,5 +20,5 @@
   display: inherit;
   flex-direction: row;
   justify-content: center;
-  color: #ffffff;
+  color: $footer-font-copyright-color;
 }

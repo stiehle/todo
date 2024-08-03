@@ -8,6 +8,7 @@ import { Tables } from "../../types/database.types";
 import { useNavigate, Link } from "react-router-dom";
 import Footer from "../../components/Footer";
 import NavigationMenu from "../../components/NavigationMenu";
+import { formatDateTime } from "../../components/formatdatetime";
 
 function ToDoList() {
   const [todos, setTodos] = useState<Tables<"tasklist">[]>([]);
@@ -15,20 +16,17 @@ function ToDoList() {
   const [inputValue, setInputValue] = useState("");
   const [editMode, setEditMode] = useState(false);
   const [userLogIn, setUserLogIn] = useState<{ user: string; logIn: boolean; user_id: string }>({ user: "", logIn: false, user_id: "" });
-  // const [showPriorityMenu, setShowPriorityMenu] = useState(false);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("useEffect");
     checkUserLogIn();
-
     getData();
   }, []);
 
   async function checkUserLogIn() {
     const logIn = await checkUser();
-    console.log("Log:", logIn, logIn.session?.user.email);
+
     if (logIn.session !== null) {
       setUserLogIn({ user: String(logIn.session.user.email), logIn: true, user_id: logIn.session.user.id });
     } else {
@@ -43,7 +41,6 @@ function ToDoList() {
       inputArray[0] = inputValue;
       inputArray[1] = "";
     }
-    console.log(inputArray[0], inputArray[1]);
 
     const insert = {
       id: undefined,
@@ -55,34 +52,24 @@ function ToDoList() {
       user: userLogIn.user_id,
     };
 
-    const data = await insertData(insert);
-    console.log(data);
-    // setMyButton(date);
+    await insertData(insert);
     getData();
   }
 
   async function updateXRow(id: number) {
-    console.log(id);
-
     if (!todos) return;
     const newTodo = todos.filter((element) => {
       return element.id === id;
     });
 
-    console.log(newTodo);
-
     const inputArray = inputValue.split(",");
-    console.log(inputArray[0], inputArray[1]);
 
     newTodo[0].content = inputArray[0] || "";
     newTodo[0].note = inputArray[1] || "";
 
-    console.log(newTodo[0]);
-
     const data = { id: id, row: { content: newTodo[0].content, note: newTodo[0].note } };
 
-    const response = await updateData(data);
-    console.log(response);
+    await updateData(data);
 
     getData();
   }
@@ -95,16 +82,12 @@ function ToDoList() {
 
   async function deleteTodo(id: number) {
     if (!editMode) {
-      console.log("Delete ", id);
-      const response = await deleteData(id);
-      console.log(response);
-
+      await deleteData(id);
       getData();
     } else alert("Bitte zuerst speichern!");
   }
 
   function buttonAction(id: number) {
-    console.log("Action", id);
     if (!editMode) {
       if (action === id) {
         setAction(-1);
@@ -112,26 +95,20 @@ function ToDoList() {
         setAction(id);
       }
     } else alert("Bitte zuerst speichern!");
-
-    console.log("action ", action);
   }
 
   function changeTodo(id: number) {
     setEditMode(true);
-    console.log("Change todo ", id);
     if (!todos) return;
     const newTodo = todos.filter((element) => {
       return element.id === id;
     });
-    console.log("New Todo: ", newTodo);
     const content = newTodo[0].content;
     const note = newTodo[0].note;
-    console.log(content);
     setInputValue(content + "," + note);
   }
 
   function checkTodos() {
-    // console.log(todos.length);
     if (todos.length === 0) {
       return <h3>Noch keine Todos</h3>;
     }
@@ -139,14 +116,10 @@ function ToDoList() {
   }
 
   function setCheckbox(id: number, check: boolean) {
-    // updateDataX(id, "done", check);
     updateDataRow(id, { done: check });
   }
 
   function updatePriority(id: number, priority: string, check: boolean) {
-    // updateDataX(id, "priority", priority);
-    // updateDataRow(id, { priority: priority, done: check });
-
     if (priority > "3") {
       updateDataRow(id, { priority: priority, done: true });
     } else {
@@ -154,47 +127,27 @@ function ToDoList() {
     }
   }
 
-  // async function updateDataX(id: number, column: string, updatedData: string | boolean) {
-  //   console.log(id, updatedData);
-  //   // const data = { id: id, row: { content: newTodo[0].content, note: newTodo[0].note } };
-  //   const data = { id: id, row: { [column]: updatedData } };
-
-  //   const response = await updateData(data);
-  //   console.log(response);
-
-  //   getData();
-  // }
-
   async function updateDataRow(id: number, row: {}) {
-    const response = await updateData({ id, row });
-    console.log(response);
-
+    await updateData({ id, row });
     getData();
   }
 
   function sortedTodos() {
     const newTodos = todos;
-    // const sorted = newTodos.sort((A: any, B: any) => B.priority - A.priority);
-    // if (!newTodos) return;
     const sorted = newTodos.sort((A, B) => A.priority.localeCompare(B.priority));
-    // console.log("sorted: ", sorted);
     return sorted;
   }
 
   function changeText(text: string) {
-    // console.log(text);
     setInputValue(text);
   }
 
   function addButton() {
     insertNewRow();
-
     setInputValue("");
   }
 
   function saveButton() {
-    console.log("id =", action, inputValue);
-
     updateXRow(action);
 
     setInputValue("");
@@ -203,19 +156,13 @@ function ToDoList() {
   }
 
   async function signOut() {
-    console.log("Signout");
     await signOutUser();
     navigate("/todo/login/");
   }
 
   return (
     <>
-      {/* <div className="navigation">
-        <div className="navigation__checkin" onClick={(event) => handleMenuClick(event, "login")}>
-          Anmeldung
-        </div> */}
       <NavigationMenu />
-      {/* </div> */}
       <div className="header">
         <InputField addButton={addButton} saveButton={saveButton} changeText={changeText} valueX={inputValue} editMode={editMode} />
         {userLogIn.logIn ? <h1 style={{ color: "#00FF00" }}>Aufgaben </h1> : <h1 style={{ color: "#FF0000" }}>Aufgaben</h1>}
@@ -223,7 +170,6 @@ function ToDoList() {
       <div className="todo-list">
         {checkTodos()}
         {sortedTodos().map((list) => {
-          // console.log("###", list);
           return (
             <div key={list.id}>
               {action === list.id ? (
@@ -246,7 +192,7 @@ function ToDoList() {
                     </button>
                   </div>
                   <p>
-                    id: {list.id} - date: {list.created_at}
+                    id: {list.id} - {formatDateTime(list.created_at)}
                   </p>
                 </div>
               ) : (
@@ -272,15 +218,6 @@ function ToDoList() {
         </button>
       </div>
       <div className="footer">
-        {/* <div className="footer-links">
-          <a href="#">Impressum</a>
-          <a href="#">Datenschutzerklärung</a>
-          <a href="#">www.stiehle.de</a>
-        </div>
-        <div className="footer-copy">
-          <h4>&copy;2024 www.stiehle.de</h4>
-        </div> */}
-
         <Footer />
       </div>
     </>

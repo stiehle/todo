@@ -46,9 +46,7 @@ function NavigationMenu() {
   ];
 
   function handleMenuClick(id: number) {
-    const link = links.find((num) => {
-      return num.id === id;
-    });
+    const link = links.find((num) => num.id === id);
 
     if (link) {
       if (link.route) {
@@ -57,7 +55,6 @@ function NavigationMenu() {
         open("http://" + link.web);
       }
     }
-    console.log(link);
   }
 
   return (
@@ -69,7 +66,7 @@ function NavigationMenu() {
         Links
         <div className="navigation__info--menu">
           <div className="navigation__header">Seiten:</div>
-          <IconContext.Provider value={{ color: "white", size: "1.8rem" }}>
+          <IconContext.Provider value={{ color: "white", size: "1.6rem" }}>
             {links.map((val) => {
               return (
                 <div key={val.name} className="navigation__item" onClick={() => handleMenuClick(val.id)}>
