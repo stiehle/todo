@@ -13,9 +13,11 @@ interface ITodo {
     note: string;
     priority: string;
   };
+
   buttonAction: (id: number) => void;
   updateCheckbox: (id: number, check: boolean) => void;
-  setPriority: (id: number, priority: string, check: boolean) => void;
+  setPriority: (id: number, priority: string) => void;
+  // setPriority: (id: number, priority: string, check: boolean) => void;
 }
 
 function Todo({ todo, buttonAction, updateCheckbox, setPriority }: ITodo) {
@@ -25,11 +27,11 @@ function Todo({ todo, buttonAction, updateCheckbox, setPriority }: ITodo) {
 
   function handleChangeCheckboxEvent(changeEvent: ChangeEvent<HTMLInputElement>) {
     updateCheckbox(todo.id, changeEvent.target.checked);
-    if (changeEvent.target.checked) {
-      setPriority(Number(changeEvent.target.id), "4", true);
-    } else {
-      setPriority(Number(changeEvent.target.id), "3", false);
-    }
+    // if (changeEvent.target.checked) {
+    //   setPriority(Number(changeEvent.target.id), "4", true);
+    // } else {
+    //   setPriority(Number(changeEvent.target.id), "3", false);
+    // }
   }
 
   const priorityColorTheme = {
@@ -54,7 +56,8 @@ function Todo({ todo, buttonAction, updateCheckbox, setPriority }: ITodo) {
           id={String(val)}
           key={val}
           onClick={() => {
-            setPriority(todo.id, String(val), false);
+            // setPriority(todo.id, String(val), false);
+            setPriority(todo.id, String(val));
             setShowPriorityMenu(false);
             // addEventListener("click", myListener);
           }}
@@ -74,14 +77,15 @@ function Todo({ todo, buttonAction, updateCheckbox, setPriority }: ITodo) {
       console.log("relatetTarget");
       // console.log(e.relatedTarget.innerText);
       console.log(e.relatedTarget.id);
-      setPriority(todo.id, e.relatedTarget.id, false);
+      setPriority(todo.id, e.relatedTarget.id);
+      // setPriority(todo.id, e.relatedTarget.id, false);
     }
   }
 
   useEffect(() => {
     if (divRef.current) {
       divRef.current.focus();
-      console.log("---", showPriorityMenu);
+      // console.log("---", showPriorityMenu);
     }
   }, [showPriorityMenu]);
 

@@ -3,12 +3,12 @@ import { useState, useEffect } from "react";
 import InputField from "../../components/Input";
 import Todo from "./Todo";
 import "./TodoList.scss";
-import { fetchData, insertData, updateData, deleteData, checkUser, signOutUser } from "../../components/supabase";
+import { fetchData, insertData, updateData, deleteData, checkUser, signOutUser } from "../../utils/supabase";
 import { Tables } from "../../types/database.types";
 import { useNavigate, Link } from "react-router-dom";
 import Footer from "../../components/Footer";
 import NavigationMenu from "../../components/NavigationMenu";
-import { formatDateTime } from "../../components/formatdatetime";
+import { formatDateTime } from "../../utils/formatdatetime";
 
 function ToDoList() {
   const [todos, setTodos] = useState<Tables<"tasklist">[]>([]);
@@ -139,13 +139,17 @@ function ToDoList() {
   function setCheckbox(id: number, check: boolean) {
     updateDataRow(id, { done: check });
   }
+  // function updatePriority(id: number, priority: string, check: boolean) {
+  function updatePriority(id: number, priority: string) {
+    updateDataRow(id, { priority: priority });
 
-  function updatePriority(id: number, priority: string, check: boolean) {
-    if (priority > "3") {
-      updateDataRow(id, { priority: priority, done: true });
-    } else {
-      updateDataRow(id, { priority: priority, done: check });
-    }
+    // updateDataRow(id, { priority: priority, done: check });
+
+    // if (priority > "3") {
+    //   updateDataRow(id, { priority: priority, done: true });
+    // } else {
+    //   updateDataRow(id, { priority: priority, done: check });
+    // }
   }
 
   async function updateDataRow(id: number, row: {}) {
@@ -155,6 +159,7 @@ function ToDoList() {
 
   function sortedTodos() {
     const newTodos = todos;
+    //const sorted = newTodos.sort((A, B) => A.priority.localeCompare(B.priority));
     const sorted = newTodos.sort((A, B) => A.priority.localeCompare(B.priority));
     return sorted;
   }

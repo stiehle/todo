@@ -47,6 +47,7 @@ export async function insertData(insertData: IData) {
 }
 
 export async function signInWithPassword(LogInData: LogInData) {
+  console.log(LogInData);
   const { error } = await supabase.auth.signInWithPassword({
     email: LogInData.email,
     password: LogInData.password,

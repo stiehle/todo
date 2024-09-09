@@ -20,6 +20,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"],
+  "include": ["src", "src/utils/supabase.tsx", "src/utils/formatdatetime.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

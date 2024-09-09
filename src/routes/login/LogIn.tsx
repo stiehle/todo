@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./LogIn.scss";
 import { useNavigate } from "react-router-dom";
-import { signInWithGithub, signInWithPassword } from "../../components/supabase";
+import { signInWithGithub, signInWithPassword } from "../../utils/supabase";
 import Footer from "../../components/Footer";
 
 function LogIn() {
@@ -14,6 +14,7 @@ function LogIn() {
     const [inputValue, setInputValue] = useState<string>("");
     const handleInputChangeEvent = (event: React.ChangeEvent<HTMLInputElement>) => {
       setInputValue(event.target.value);
+      console.log(event.target.value);
     };
 
     return {
@@ -23,11 +24,12 @@ function LogIn() {
   }
 
   async function submitLogIn() {
+    console.log(emailAdress.inputValue, password.inputValue);
     const logIn = await signInWithPassword({ email: emailAdress.inputValue, password: password.inputValue });
 
     if (!logIn) {
       alert("Anmeldung fehgeschlagen");
-    } else navigate("/login");
+    } else navigate("/");
   }
 
   return (
@@ -50,6 +52,7 @@ function LogIn() {
             }}>
             Anmelden
           </button>
+
           <p>oder Melde dich an mit: </p>
           <button
             onClick={() => {
