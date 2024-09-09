@@ -30,24 +30,42 @@ function ToDoList() {
     if (logIn.session !== null) {
       setUserLogIn({ user: String(logIn.session.user.email), logIn: true, user_id: logIn.session.user.id });
     } else {
-      navigate("/todo/login/");
+      navigate("/login");
     }
   }
 
-  async function insertNewRow() {
+  function checkInputText() {
+    let check: string[] = [];
     const inputArray = inputValue.split(",");
+    console.log(inputArray);
 
-    if (inputArray.length === 1) {
-      inputArray[0] = inputValue;
-      inputArray[1] = "";
+    for (let item = 1; item < inputArray.length; item++) {
+      check.push(inputArray[item]);
     }
+    console.log(check);
+
+    const content = inputArray[0];
+    const note = check.join(",");
+
+    return { content, note };
+  }
+
+  async function insertNewRow() {
+    const { content, note } = checkInputText();
+    // const inputArray = inputValue.split(",");
+    // console.log(inputArray);
+
+    // if (inputArray.length === 1) {
+    //   inputArray[0] = inputValue;
+    //   inputArray[1] = "";
+    // }
 
     const insert = {
       id: undefined,
       category: "X",
-      content: inputArray[0],
+      content: content,
       done: false,
-      note: inputArray[1],
+      note: note,
       priority: "3",
       user: userLogIn.user_id,
     };
@@ -57,17 +75,20 @@ function ToDoList() {
   }
 
   async function updateXRow(id: number) {
-    if (!todos) return;
-    const newTodo = todos.filter((element) => {
-      return element.id === id;
-    });
+    // if (!todos) return;
+    // const newTodo = todos.filter((element) => {
+    //   return element.id === id;
+    // });
 
-    const inputArray = inputValue.split(",");
+    const { content, note } = checkInputText();
 
-    newTodo[0].content = inputArray[0] || "";
-    newTodo[0].note = inputArray[1] || "";
+    // const inputArray = inputValue.split(",");
+    // console.log(inputArray);
 
-    const data = { id: id, row: { content: newTodo[0].content, note: newTodo[0].note } };
+    // newTodo[0].content = inputArray[0] || "";
+    // newTodo[0].note = inputArray[1] || "";
+
+    const data = { id: id, row: { content: content, note: note } };
 
     await updateData(data);
 
@@ -157,7 +178,7 @@ function ToDoList() {
 
   async function signOut() {
     await signOutUser();
-    navigate("/todo/login/");
+    navigate("login");
   }
 
   return (
@@ -171,7 +192,7 @@ function ToDoList() {
         {checkTodos()}
         {sortedTodos().map((list) => {
           return (
-            <div key={list.id}>
+            <div key={list.id} className="todoItem">
               {action === list.id ? (
                 <div className="action-window">
                   <Todo todo={list} buttonAction={buttonAction} updateCheckbox={setCheckbox} setPriority={updatePriority} />
@@ -203,7 +224,7 @@ function ToDoList() {
         })}
       </div>
       <div className="log-data">
-        <Link to="/todo/login">
+        <Link to="/login">
           {userLogIn.logIn ? (
             <p style={{ backgroundColor: "#00FF00", color: "#000000" }}>Anmeldung als: {userLogIn.user}</p>
           ) : (

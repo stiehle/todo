@@ -75,3 +75,10 @@ export async function deleteData(id: number) {
   }
   return data;
 }
+
+export async function signInWithGithub() {
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: "github",
+  });
+  console.log(data, error);
+}

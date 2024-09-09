@@ -1,14 +1,14 @@
-$text-color: #ffffff;
+$text-color: #000000;
 $action-window-background-color: #8266cf;
-$action-buttons-color: #ffffff;
+$action-buttons-color: transparent;
 $action-buttons-border-color: #000000;
 $action-buttons-hover-color: #ff0000;
 $log-data-button-color: #ffd016;
 
-* {
-  margin: 0;
-  padding: 0;
-}
+// * {
+//   margin: 0;
+//   padding: 0;
+// }
 
 h1 {
   margin: 0.5rem;
@@ -85,6 +85,7 @@ a {
   border: 2px solid $action-buttons-border-color;
   border-radius: 5px;
   margin: 0.5rem;
+  color: #ffffff;
 }
 
 .action-buttons:hover {

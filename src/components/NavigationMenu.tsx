@@ -34,7 +34,7 @@ function NavigationMenu() {
     {
       id: 5,
       name: "Anmeldung",
-      route: "/todo/login/",
+      route: "login",
       icon: "route",
     },
     {

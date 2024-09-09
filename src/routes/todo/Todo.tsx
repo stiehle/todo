@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { CgMore } from "react-icons/cg";
 import { IconContext } from "react-icons";
 import "./Todo.scss";
@@ -20,6 +20,8 @@ interface ITodo {
 
 function Todo({ todo, buttonAction, updateCheckbox, setPriority }: ITodo) {
   const [showPriorityMenu, setShowPriorityMenu] = useState(false);
+
+  const divRef = useRef<HTMLDivElement>(null);
 
   function handleChangeCheckboxEvent(changeEvent: ChangeEvent<HTMLInputElement>) {
     updateCheckbox(todo.id, changeEvent.target.checked);
@@ -49,53 +51,74 @@ function Todo({ todo, buttonAction, updateCheckbox, setPriority }: ITodo) {
     return html.map((val) => {
       return (
         <button
+          id={String(val)}
           key={val}
           onClick={() => {
             setPriority(todo.id, String(val), false);
             setShowPriorityMenu(false);
-          }}>
+            // addEventListener("click", myListener);
+          }}
+          className="priority">
           {val}
         </button>
       );
     });
   }
 
+  function handleOnBlur(e: React.FocusEvent) {
+    console.log("blur", e);
+
+    setShowPriorityMenu(false);
+
+    if (e.relatedTarget !== null && e.relatedTarget.className !== "button-priority") {
+      console.log("relatetTarget");
+      // console.log(e.relatedTarget.innerText);
+      console.log(e.relatedTarget.id);
+      setPriority(todo.id, e.relatedTarget.id, false);
+    }
+  }
+
+  useEffect(() => {
+    if (divRef.current) {
+      divRef.current.focus();
+      console.log("---", showPriorityMenu);
+    }
+  }, [showPriorityMenu]);
+
   return (
     <div className="todo" style={setPriorityColor()}>
       <button
+        // id={String(todo.id)}
         className="button-priority"
         onClick={() => {
-          if (!showPriorityMenu) {
-            setShowPriorityMenu(true);
-          } else {
-            setShowPriorityMenu(false);
-          }
+          console.log("test");
+          setShowPriorityMenu(true);
         }}>
         {todo.priority}
       </button>
+
       {showPriorityMenu && (
-        <div className="button-priority__menu">
+        <div className="button-priority__menu" ref={divRef} tabIndex={-1} onBlur={handleOnBlur}>
           <div className="button-priority__header">Wichtigkeit wählen</div>
           <div className="button-priority__buttons">{createMenuButtons()}</div>
         </div>
       )}
+
       <input id={String(todo.id)} className="checkbox" type="checkbox" checked={todo.done} onChange={handleChangeCheckboxEvent}></input>
+
       <label
         htmlFor={String(todo.id)}
         className="todo-note"
         style={todo.done ? { fontStyle: "italic", textDecoration: "line-through" } : { fontStyle: "normal" }}>
-        <div>
-          <div className="content" style={todo.done ? { fontStyle: "italic", textDecoration: "line-through" } : { fontStyle: "normal" }}>
+        <div className="content" style={todo.done ? { fontStyle: "italic", textDecoration: "line-through" } : { fontStyle: "normal" }}>
+          <p>
             {todo.content}
-          </div>
-          {todo.note && (
-            <>
-              {", "}
-              {todo.note}
-            </>
-          )}
+            {/* {", "} */}
+          </p>
         </div>
+        {todo.note && <p>{todo.note}</p>}
       </label>
+
       <button
         className="button-action"
         onClick={() => {
@@ -105,6 +128,7 @@ function Todo({ todo, buttonAction, updateCheckbox, setPriority }: ITodo) {
           <CgMore />
         </IconContext.Provider>
       </button>
+      {/* <div>{goTest()}</div> */}
     </div>
   );
 }

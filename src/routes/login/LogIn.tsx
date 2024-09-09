@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./LogIn.scss";
 import { useNavigate } from "react-router-dom";
-import { signInWithPassword } from "../../components/supabase";
+import { signInWithGithub, signInWithPassword } from "../../components/supabase";
 import Footer from "../../components/Footer";
 
 function LogIn() {
@@ -27,13 +27,13 @@ function LogIn() {
 
     if (!logIn) {
       alert("Anmeldung fehgeschlagen");
-    } else navigate("/todo/");
+    } else navigate("/login");
   }
 
   return (
     <>
-      <div className="site-header"></div>
       <div className="login">
+        <img src="./LogInImage1.jpg" alt="Key Image" />
         <div className="login__header">
           <h2>Anmelden</h2>
           <label htmlFor="email">
@@ -49,6 +49,13 @@ function LogIn() {
               submitLogIn();
             }}>
             Anmelden
+          </button>
+          <p>oder Melde dich an mit: </p>
+          <button
+            onClick={() => {
+              signInWithGithub();
+            }}>
+            Github
           </button>
         </div>
       </div>

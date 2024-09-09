@@ -18,14 +18,14 @@ function InputField({ addButton, saveButton, changeText, valueX, editMode }: IFi
 
   return (
     <div className="input-field">
-      <input name="input-text" className="input-text" onChange={handleInputChange} value={valueX} />
+      <input name="input-text" className="input-text" onChange={handleInputChange} value={valueX} placeholder="neue Aufgabe..." />
       {editMode === false ? (
         <button
           className="add-button centered-label"
           onClick={() => {
             addButton();
           }}>
-          <IconContext.Provider value={{ color: "#ffffff", size: "2.0rem" }}>
+          <IconContext.Provider value={{ color: "#ffffff", size: "2.5rem" }}>
             <CgAddR />
           </IconContext.Provider>
         </button>
@@ -35,7 +35,7 @@ function InputField({ addButton, saveButton, changeText, valueX, editMode }: IFi
           onClick={() => {
             saveButton();
           }}>
-          <IconContext.Provider value={{ color: "#ff0000", size: "2.0rem" }}>
+          <IconContext.Provider value={{ color: "#ff0000", size: "2.5rem" }}>
             <CgSoftwareDownload />
           </IconContext.Provider>
         </button>
