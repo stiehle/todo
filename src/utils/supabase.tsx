@@ -80,6 +80,9 @@ export async function deleteData(id: number) {
 export async function signInWithGithub() {
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "github",
+    options: {
+      redirectTo: "https://stiehle.github.io/todo",
+    },
   });
   console.log(data, error);
 }
