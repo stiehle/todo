@@ -42,6 +42,7 @@ function LogIn() {
             <p>Bitte gib deine E-Mail Adresse und Passwort ein: </p>
           </label>
         </div>
+
         <div className="login__item">
           <input type="email" id="email" value={emailAdress.inputValue} onChange={emailAdress.handleInputChangeEvent} placeholder="E-Mail Adresse" />
           <label htmlFor="password"></label>
@@ -62,6 +63,7 @@ function LogIn() {
           </button>
         </div>
       </div>
+      {/* <Search /> */}
       <Footer />
     </>
   );

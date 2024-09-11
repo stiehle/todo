@@ -158,9 +158,25 @@ function ToDoList() {
   }
 
   function sortedTodos() {
-    const newTodos = todos;
-    //const sorted = newTodos.sort((A, B) => A.priority.localeCompare(B.priority));
-    const sorted = newTodos.sort((A, B) => A.priority.localeCompare(B.priority));
+    // const newTodos = todos;
+    // console.log(newTodos, todos);
+
+    // const newTodos2 = structuredClone(todos);
+    // const newTodos2 = { ...todos };
+    // console.log(newTodos2);
+
+    // const sorted = newTodos.sort((A, B) => A.priority.localeCompare(B.priority));
+    const sorted = todos.sort((A, B) => A.priority.localeCompare(B.priority));
+    // const sorted = todos.sort((A, B) => A.priority.localeCompare(B.priority));
+    // const sorted = todos.sort((A, B) => Number(A.priority) - Number(B.priority) && A.id + B.id);
+    // const sorted = todos.sort((A, B) => Number(A.priority) - Number(B.priority));
+
+    console.log(sorted);
+
+    // const newSorted = newTodos2
+    // console.log(newSorted);
+    // console.log("sorted", sorted, "new", newSorted);
+
     return sorted;
   }
 

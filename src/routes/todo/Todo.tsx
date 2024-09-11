@@ -115,10 +115,7 @@ function Todo({ todo, buttonAction, updateCheckbox, setPriority }: ITodo) {
         className="todo-note"
         style={todo.done ? { fontStyle: "italic", textDecoration: "line-through" } : { fontStyle: "normal" }}>
         <div className="content" style={todo.done ? { fontStyle: "italic", textDecoration: "line-through" } : { fontStyle: "normal" }}>
-          <p>
-            {todo.content}
-            {/* {", "} */}
-          </p>
+          <p>{todo.content}</p>
         </div>
         {todo.note && <p>{todo.note}</p>}
       </label>
