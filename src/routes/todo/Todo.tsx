@@ -17,7 +17,6 @@ interface ITodo {
   buttonAction: (id: number) => void;
   updateCheckbox: (id: number, check: boolean) => void;
   setPriority: (id: number, priority: string) => void;
-  // setPriority: (id: number, priority: string, check: boolean) => void;
 }
 
 function Todo({ todo, buttonAction, updateCheckbox, setPriority }: ITodo) {
@@ -27,11 +26,6 @@ function Todo({ todo, buttonAction, updateCheckbox, setPriority }: ITodo) {
 
   function handleChangeCheckboxEvent(changeEvent: ChangeEvent<HTMLInputElement>) {
     updateCheckbox(todo.id, changeEvent.target.checked);
-    // if (changeEvent.target.checked) {
-    //   setPriority(Number(changeEvent.target.id), "4", true);
-    // } else {
-    //   setPriority(Number(changeEvent.target.id), "3", false);
-    // }
   }
 
   const priorityColorTheme = {
@@ -56,10 +50,8 @@ function Todo({ todo, buttonAction, updateCheckbox, setPriority }: ITodo) {
           id={String(val)}
           key={val}
           onClick={() => {
-            // setPriority(todo.id, String(val), false);
             setPriority(todo.id, String(val));
             setShowPriorityMenu(false);
-            // addEventListener("click", myListener);
           }}
           className="priority">
           {val}
@@ -69,33 +61,24 @@ function Todo({ todo, buttonAction, updateCheckbox, setPriority }: ITodo) {
   }
 
   function handleOnBlur(e: React.FocusEvent) {
-    console.log("blur", e);
-
     setShowPriorityMenu(false);
 
     if (e.relatedTarget !== null && e.relatedTarget.className !== "button-priority") {
-      console.log("relatetTarget");
-      // console.log(e.relatedTarget.innerText);
-      console.log(e.relatedTarget.id);
       setPriority(todo.id, e.relatedTarget.id);
-      // setPriority(todo.id, e.relatedTarget.id, false);
     }
   }
 
   useEffect(() => {
     if (divRef.current) {
       divRef.current.focus();
-      // console.log("---", showPriorityMenu);
     }
   }, [showPriorityMenu]);
 
   return (
     <div className="todo" style={setPriorityColor()}>
       <button
-        // id={String(todo.id)}
         className="button-priority"
         onClick={() => {
-          console.log("test");
           setShowPriorityMenu(true);
         }}>
         {todo.priority}
@@ -129,7 +112,6 @@ function Todo({ todo, buttonAction, updateCheckbox, setPriority }: ITodo) {
           <CgMore />
         </IconContext.Provider>
       </button>
-      {/* <div>{goTest()}</div> */}
     </div>
   );
 }

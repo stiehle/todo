@@ -1,7 +1,7 @@
 import { ChangeEvent } from "react";
 import { CgAddR, CgSoftwareDownload } from "react-icons/cg";
 import { IconContext } from "react-icons";
-import "./Input.css";
+import "./Input.scss";
 
 interface IField {
   addButton: () => void;

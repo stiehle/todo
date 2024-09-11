@@ -14,7 +14,6 @@ function LogIn() {
     const [inputValue, setInputValue] = useState<string>("");
     const handleInputChangeEvent = (event: React.ChangeEvent<HTMLInputElement>) => {
       setInputValue(event.target.value);
-      console.log(event.target.value);
     };
 
     return {
@@ -24,7 +23,6 @@ function LogIn() {
   }
 
   async function submitLogIn() {
-    console.log(emailAdress.inputValue, password.inputValue);
     const logIn = await signInWithPassword({ email: emailAdress.inputValue, password: password.inputValue });
 
     if (!logIn) {

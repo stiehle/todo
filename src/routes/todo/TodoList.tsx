@@ -37,12 +37,10 @@ function ToDoList() {
   function checkInputText() {
     let check: string[] = [];
     const inputArray = inputValue.split(",");
-    console.log(inputArray);
 
     for (let item = 1; item < inputArray.length; item++) {
       check.push(inputArray[item]);
     }
-    console.log(check);
 
     const content = inputArray[0];
     const note = check.join(",");
@@ -52,13 +50,6 @@ function ToDoList() {
 
   async function insertNewRow() {
     const { content, note } = checkInputText();
-    // const inputArray = inputValue.split(",");
-    // console.log(inputArray);
-
-    // if (inputArray.length === 1) {
-    //   inputArray[0] = inputValue;
-    //   inputArray[1] = "";
-    // }
 
     const insert = {
       id: undefined,
@@ -75,18 +66,7 @@ function ToDoList() {
   }
 
   async function updateXRow(id: number) {
-    // if (!todos) return;
-    // const newTodo = todos.filter((element) => {
-    //   return element.id === id;
-    // });
-
     const { content, note } = checkInputText();
-
-    // const inputArray = inputValue.split(",");
-    // console.log(inputArray);
-
-    // newTodo[0].content = inputArray[0] || "";
-    // newTodo[0].note = inputArray[1] || "";
 
     const data = { id: id, row: { content: content, note: note } };
 
@@ -139,17 +119,9 @@ function ToDoList() {
   function setCheckbox(id: number, check: boolean) {
     updateDataRow(id, { done: check });
   }
-  // function updatePriority(id: number, priority: string, check: boolean) {
+
   function updatePriority(id: number, priority: string) {
     updateDataRow(id, { priority: priority });
-
-    // updateDataRow(id, { priority: priority, done: check });
-
-    // if (priority > "3") {
-    //   updateDataRow(id, { priority: priority, done: true });
-    // } else {
-    //   updateDataRow(id, { priority: priority, done: check });
-    // }
   }
 
   async function updateDataRow(id: number, row: {}) {
@@ -158,24 +130,7 @@ function ToDoList() {
   }
 
   function sortedTodos() {
-    // const newTodos = todos;
-    // console.log(newTodos, todos);
-
-    // const newTodos2 = structuredClone(todos);
-    // const newTodos2 = { ...todos };
-    // console.log(newTodos2);
-
-    // const sorted = newTodos.sort((A, B) => A.priority.localeCompare(B.priority));
     const sorted = todos.sort((A, B) => A.priority.localeCompare(B.priority));
-    // const sorted = todos.sort((A, B) => A.priority.localeCompare(B.priority));
-    // const sorted = todos.sort((A, B) => Number(A.priority) - Number(B.priority) && A.id + B.id);
-    // const sorted = todos.sort((A, B) => Number(A.priority) - Number(B.priority));
-
-    console.log(sorted);
-
-    // const newSorted = newTodos2
-    // console.log(newSorted);
-    // console.log("sorted", sorted, "new", newSorted);
 
     return sorted;
   }
