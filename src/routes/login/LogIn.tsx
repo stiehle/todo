@@ -61,7 +61,7 @@ function LogIn() {
           </button>
         </div>
       </div>
-      {/* <Search /> */}
+
       <Footer />
     </>
   );
