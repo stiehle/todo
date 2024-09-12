@@ -81,8 +81,8 @@ export async function signInWithGithub() {
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: "github",
     options: {
-      // redirectTo: "https://stiehle.github.io/todo",
-      redirectTo: "http://localhost:5173/todo/",
+      redirectTo: "https://stiehle.github.io/todo",
+      // redirectTo: "http://localhost:5173/todo/",
     },
   });
   console.log(data, error);
