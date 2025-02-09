@@ -5,13 +5,13 @@ import { signInWithGithub, signInWithPassword } from "../../utils/supabase";
 import Footer from "../../components/Footer";
 
 function LogIn() {
-  const emailAdress = useFormInput();
-  const password = useFormInput();
+  const emailAdress = useFormInput(import.meta.env.VITE_EMAIL);
+  const password = useFormInput(import.meta.env.VITE_PASSWORD);
 
   const navigate = useNavigate();
 
-  function useFormInput() {
-    const [inputValue, setInputValue] = useState<string>("");
+  function useFormInput(name: string) {
+    const [inputValue, setInputValue] = useState<string>(name);
     const handleInputChangeEvent = (event: React.ChangeEvent<HTMLInputElement>) => {
       setInputValue(event.target.value);
     };
